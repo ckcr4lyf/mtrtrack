@@ -1,0 +1,89 @@
+{
+    "sys_time": "2025-03-29 14:26:06",
+    "curr_time": "2025-03-29 14:26:06",
+    "data": {
+        "TKL-TIK": {
+            "curr_time": "2025-03-29 14:26:06",
+            "sys_time": "2025-03-29 14:26:06",
+            "UP": [
+                {
+                    "seq": "1",
+                    "dest": "LHP",
+                    "plat": "3",
+                    "time": "2025-03-29 14:27:06",
+                    "ttnt": "1",
+                    "valid": "Y",
+                    "source": "-"
+                },
+                {
+                    "seq": "2",
+                    "dest": "POA",
+                    "plat": "3",
+                    "time": "2025-03-29 14:29:06",
+                    "ttnt": "3",
+                    "valid": "Y",
+                    "source": "-"
+                },
+                {
+                    "seq": "3",
+                    "dest": "POA",
+                    "plat": "3",
+                    "time": "2025-03-29 14:31:06",
+                    "ttnt": "5",
+                    "valid": "Y",
+                    "source": "-"
+                },
+                {
+                    "seq": "4",
+                    "dest": "LHP",
+                    "plat": "3",
+                    "time": "2025-03-29 14:35:06",
+                    "ttnt": "9",
+                    "valid": "Y",
+                    "source": "-"
+                }
+            ],
+            "DOWN": [
+                {
+                    "seq": "1",
+                    "dest": "NOP",
+                    "plat": "4",
+                    "time": "2025-03-29 14:29:06",
+                    "ttnt": "3",
+                    "valid": "Y",
+                    "source": "-"
+                },
+                {
+                    "seq": "2",
+                    "dest": "NOP",
+                    "plat": "4",
+                    "time": "2025-03-29 14:33:06",
+                    "ttnt": "7",
+                    "valid": "Y",
+                    "source": "-"
+                },
+                {
+                    "seq": "3",
+                    "dest": "NOP",
+                    "plat": "4",
+                    "time": "2025-03-29 14:37:06",
+                    "ttnt": "11",
+                    "valid": "Y",
+                    "source": "-"
+                },
+                {
+                    "seq": "4",
+                    "dest": "NOP",
+                    "plat": "4",
+                    "time": "2025-03-29 14:42:06",
+                    "ttnt": "16",
+                    "valid": "Y",
+                    "source": "-"
+                }
+            ]
+        }
+    },
+    "isdelay": "N",
+    "status": 1,
+    "message": "successful"
+}
