@@ -7,23 +7,19 @@
     <title>MTR Track</title>
     <link rel="stylesheet" href="/uPlot.min.css">
     <script src="/uPlot.iife.min.js"></script>
-    <script src="/index.mjs"></script>
     <script>
-        // let data = [
-        //     [1546300800, 1546387200],    // x-values (timestamps)
-        //     [35, 71],    // y-values (series 1)
-        //     [90, 15],    // y-values (series 2)
-        // ];
+        let data = [
+            [1546300800, 1546387200],    // x-values (timestamps)
+            [35, 71],    // y-values (series 1)
+            [90, 15],    // y-values (series 2)
+        ];
 
-        let data = [[], [], []];
-
-        
         let opts = {
             title: "My Chart",
             id: "chart1",
             class: "my-chart",
-            width: 2000,
-            height: 1000,
+            width: 800,
+            height: 600,
             series: [
                 {},
                 {
@@ -44,7 +40,7 @@
                 },
                 {
                     // initial toggled state (optional)
-                    // show: true,
+                    show: true,
 
                     spanGaps: false,
 
@@ -62,7 +58,6 @@
         };
 
         
-
     </script>
 </head>
 
@@ -72,17 +67,7 @@
 
     </div> -->
     <script>
-        // let uplot = new uPlot(opts, data, document.body);
         let uplot = new uPlot(opts, data, document.body);
-        setInterval(async () => {
-            const data = await fetchData('TKL', 'TIK');
-            const averages = getAverages(data, 'TKL', 'TIK', 'UP');
-            uplot.data[0].push(Date.now() / 1000),
-            uplot.data[1].push(averages[0].average);
-            // uplot.data[2].push(Math.random() * 100);
-
-            uplot.setData(uplot.data);
-        }, 1000);
     </script>
 </body>
 

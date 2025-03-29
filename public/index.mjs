@@ -7,7 +7,7 @@
  * 
  * @param {string} line 
  * @param {string} station 
- * @returns {import('./types').MtrResponse}
+ * @returns {Promise<import('./types').MtrResponse>}
  */
 export const fetchData = async (line, station) => {
     const response = await fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=${line}&sta=${station}`);
@@ -20,6 +20,7 @@ export const fetchData = async (line, station) => {
  * @param {string} line 
  * @param {string} station 
  * @param {'UP' | 'DOWN'} direction 
+ * @returns {import('./types').FrequencyData[]}
  */
 export const getAverages = (data, line, station, direction) => {
     const mtrRoute = data.data[`${line}-${station}`];
@@ -33,6 +34,11 @@ export const getAverages = (data, line, station, direction) => {
     
         destinations[up.dest].push(up.time);
     };
+
+    /**
+     * @type {import('./types').FrequencyData[]}
+     */
+    const frequencyDatas = [];
     
     for (const dst of Object.keys(destinations).sort()){
         if (destinations[dst].length === 0){
@@ -47,15 +53,26 @@ export const getAverages = (data, line, station, direction) => {
             base = d ;
             return interval;
         });
+
+        frequencyDatas.push({
+            mtrCurrentTime: mtrRoute.curr_time,
+            line: line,
+            station: station,
+            destination: dst,
+            direction: direction,
+            average: calculateAverage(intervals),
+        })
     
         console.log(`${mtrRoute.curr_time},${station}-${dst} (${direction}),${calculateAverage(intervals)}`);
     }
+
+    return frequencyDatas;
 }
 
 /**
  * 
  * @param {number[]} intervals 
- * @returns {string | number}
+ * @returns {'N/A' | number}
  */
 function calculateAverage(intervals){
     const final = intervals.reduce((acc, current) => {

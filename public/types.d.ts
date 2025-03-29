@@ -20,3 +20,13 @@ export type MtrResponse = {
     isdelay: 'N' | 'Y',
     status: number,
 }
+
+export type FrequencyData = {
+    mtrCurrentTime: string,
+    line: string,
+    station: string,
+    destination: string,
+    // TOOD: Maybe route? TBD Racecourse logic
+    direction: 'UP' | 'DOWN',
+    average: 'N/A' | number,
+}
