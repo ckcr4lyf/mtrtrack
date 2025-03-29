@@ -9,7 +9,7 @@ API Docs: https://opendata.mtr.com.hk/doc/Next_Train_API_Spec_v1.7.pdf
 I am not quite sure yet, but the response for East Rail Line is different to others. E.g.:
 
 Island Line (ADM)
-```jso
+```json
 {
     "seq": "1",
     "dest": "CHW",
