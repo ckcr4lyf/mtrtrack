@@ -15,6 +15,16 @@ const routesToGet = [
         direction: 'UP'
     },
     {
+        line: 'EAL',
+        sta: 'SHT',
+        direction: 'UP'
+    },
+    {
+        line: 'EAL',
+        sta: 'UNI',
+        direction: 'DOWN'
+    },
+    {
         line: 'SIL',
         sta: 'ADM',
         direction: 'UP'
@@ -44,17 +54,15 @@ async function getMultiple(){
     /**
      * @type {import('./types').FrequencyData[]}
      */
-    let averages = [];
-    for (const route of routesToGet){
+
+    // lets hoe i don't get ratelimited by MTR :pray:
+    const dataPromises = routesToGet.map(async(route) => {
         const data = await fetchData(route.line, route.sta);
-
         const avgs = getAverages(data, route.line, route.sta, route.direction);
+        return avgs;
+    });
 
-        averages.push(...avgs);
-    }
-
-    console.log('avwrages', averages);
-
+    const averages = (await Promise.all(dataPromises)).flat();
     averages.sort((a, b) => {
         if (a.line === b.line){
             if (a.station === b.station){
@@ -74,11 +82,17 @@ async function getMultiple(){
         }
     }
 
-    if (initialFlag === true){
+    if (uplot.series.length !== data.length){
+        console.log(`length mismatch, gonna reset series`);
+        for (let i = 1; i < uplot.series.length; i++){
+            uplot.delSeries(1);
+        }
+    }
+
+    if (initialFlag === true || uplot.series.length !== data.length){
         for (let i = 0; i < averages.length; i++){
             const avg = averages[i];
             const label = `${avg.station} - ${avg.destination} (${avg.direction})`;
-            // series.push({
             uplot.addSeries({
                 show: true,
                 spanGaps: false,
@@ -98,8 +112,8 @@ async function getMultiple(){
         data[i + 1].push(averages[i].average);
     }
     
-    console.log('newdata', data);
     uplot.setData(data);
 }
 
 window.getMultiple = getMultiple;
+getMultiple();

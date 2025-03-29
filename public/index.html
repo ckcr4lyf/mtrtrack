@@ -9,42 +9,40 @@
     <script src="/uPlot.iife.min.js"></script>
     <script src="/browser.mjs" type="module"></script>
     <script>
-        // let data = [
-        //     [1546300800, 1546387200],    // x-values (timestamps)
-        //     [35, 71],    // y-values (series 1)
-        //     [90, 15],    // y-values (series 2)
-        // ];
-        let data = [
-            [1546300800, 1546387200],    // x-values (timestamps)
-            [35, 71],    // y-values (series 1)
-            [90, 15],    // y-values (series 2)
-        ];
+        let data = [];
+
+        function getSize() {
+				return {
+					width: window.innerWidth - 100,
+					height: window.innerHeight - 200,
+				}
+			}
+
 
         let opts = {
-            title: "My Chart",
+            title: "MTR Average Frequency",
             id: "chart1",
             class: "my-chart",
-            width: 2000,
-            height: 1000,
+            ...getSize(),
             series: [{}],
         };
 
+        
+
         let initialFlag = true;
-        // let data = undefined;
     </script>
 </head>
 
 <body>
-    <!-- <div>
-        <h2>MTR Tracking</h2>
-
-    </div> -->
     <script>
-        // let uplot = new uPlot(opts, data, document.body);
         let uplot = new uPlot(opts, data, document.body);
         setInterval(() => {
-            getMultiple()
+            getMultiple();
         }, 30000);
+
+        window.addEventListener("resize", e => {
+				uplot.setSize(getSize());
+			});
     </script>
 </body>
 
