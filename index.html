@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTR Track</title>
+    <link rel="stylesheet" href="/uPlot.min.css">
+    <script src="/uPlot.iife.min.js"></script>
+    <script>
+        let data = [
+            [1546300800, 1546387200],    // x-values (timestamps)
+            [35, 71],    // y-values (series 1)
+            [90, 15],    // y-values (series 2)
+        ];
+
+        let opts = {
+            title: "My Chart",
+            id: "chart1",
+            class: "my-chart",
+            width: 800,
+            height: 600,
+            series: [
+                {},
+                {
+                    // initial toggled state (optional)
+                    show: true,
+
+                    spanGaps: false,
+
+                    // in-legend display
+                    label: "RAM",
+                    value: (self, rawValue) => rawValue == null ? '' : "$" + rawValue.toFixed(2),
+
+                    // series style
+                    stroke: "red",
+                    width: 1,
+                    fill: "rgba(255, 0, 0, 0.3)",
+                    dash: [10, 5],
+                },
+                {
+                    // initial toggled state (optional)
+                    show: true,
+
+                    spanGaps: false,
+
+                    // in-legend display
+                    label: "HDD",
+                    value: (self, rawValue) => rawValue == null ? '' : "$" + rawValue.toFixed(2),
+
+                    // series style
+                    stroke: "blue",
+                    width: 1,
+                    fill: "rgba(0, 0, 200, 0.3)",
+                    dash: [10, 5],
+                }
+            ],
+        };
+
+        
+    </script>
+</head>
+
+<body>
+    <!-- <div>
+        <h2>MTR Tracking</h2>
+
+    </div> -->
+    <script>
+        let uplot = new uPlot(opts, data, document.body);
+    </script>
+</body>
+
+</html>
