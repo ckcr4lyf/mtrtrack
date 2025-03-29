@@ -14,55 +14,23 @@
         //     [35, 71],    // y-values (series 1)
         //     [90, 15],    // y-values (series 2)
         // ];
+        let data = [
+            [1546300800, 1546387200],    // x-values (timestamps)
+            [35, 71],    // y-values (series 1)
+            [90, 15],    // y-values (series 2)
+        ];
 
-        let data = [[], [], []];
-
-        
         let opts = {
             title: "My Chart",
             id: "chart1",
             class: "my-chart",
             width: 2000,
             height: 1000,
-            series: [
-                {},
-                {
-                    // initial toggled state (optional)
-                    show: true,
-
-                    spanGaps: false,
-
-                    // in-legend display
-                    label: "RAM",
-                    value: (self, rawValue) => rawValue == null ? '' : "$" + rawValue.toFixed(2),
-
-                    // series style
-                    stroke: "red",
-                    width: 1,
-                    fill: "rgba(255, 0, 0, 0.3)",
-                    dash: [10, 5],
-                },
-                {
-                    // initial toggled state (optional)
-                    // show: true,
-
-                    spanGaps: false,
-
-                    // in-legend display
-                    label: "HDD",
-                    value: (self, rawValue) => rawValue == null ? '' : "$" + rawValue.toFixed(2),
-
-                    // series style
-                    stroke: "blue",
-                    width: 1,
-                    fill: "rgba(0, 0, 200, 0.3)",
-                    dash: [10, 5],
-                }
-            ],
+            series: [{}],
         };
 
-        
-
+        let initialFlag = true;
+        // let data = undefined;
     </script>
 </head>
 
@@ -74,16 +42,9 @@
     <script>
         // let uplot = new uPlot(opts, data, document.body);
         let uplot = new uPlot(opts, data, document.body);
-        setInterval(async () => {
-            const data = await fetchData('TKL', 'TIK');
-            const averages = getAverages(data, 'TKL', 'TIK', 'UP');
-            console.log(averages);
-            uplot.data[0].push(Date.now() / 1000),
-            uplot.data[1].push(averages[1].average);
-            // uplot.data[2].push(Math.random() * 100);
-
-            uplot.setData(uplot.data);
-        }, 10000);
+        setInterval(() => {
+            getMultiple()
+        }, 30000);
     </script>
 </body>
 
