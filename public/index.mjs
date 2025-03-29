@@ -88,8 +88,12 @@ function calculateAverage(intervals){
     });
 
     if (final.count === 0){
-        return 'N/A';
+        return null;
     }
 
     return (final.sum / final.count) / (1000);
 }
+
+window.fetchData = fetchData;
+window.getAverages = getAverages;
+// export { fetchData, getAverages }

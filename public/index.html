@@ -7,7 +7,7 @@
     <title>MTR Track</title>
     <link rel="stylesheet" href="/uPlot.min.css">
     <script src="/uPlot.iife.min.js"></script>
-    <script src="/index.mjs"></script>
+    <script src="/index.mjs" type="module"></script>
     <script>
         // let data = [
         //     [1546300800, 1546387200],    // x-values (timestamps)
@@ -77,12 +77,13 @@
         setInterval(async () => {
             const data = await fetchData('TKL', 'TIK');
             const averages = getAverages(data, 'TKL', 'TIK', 'UP');
+            console.log(averages);
             uplot.data[0].push(Date.now() / 1000),
-            uplot.data[1].push(averages[0].average);
+            uplot.data[1].push(averages[1].average);
             // uplot.data[2].push(Math.random() * 100);
 
             uplot.setData(uplot.data);
-        }, 1000);
+        }, 10000);
     </script>
 </body>
 
