@@ -72,7 +72,7 @@ export const getAverages = (data, line, station, direction) => {
 /**
  * 
  * @param {number[]} intervals 
- * @returns {'N/A' | number}
+ * @returns {null | number}
  */
 function calculateAverage(intervals){
     const final = intervals.reduce((acc, current) => {
@@ -94,6 +94,3 @@ function calculateAverage(intervals){
     return (final.sum / final.count) / (1000);
 }
 
-window.fetchData = fetchData;
-window.getAverages = getAverages;
-// export { fetchData, getAverages }

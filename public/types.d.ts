@@ -28,5 +28,5 @@ export type FrequencyData = {
     destination: string,
     // TOOD: Maybe route? TBD Racecourse logic
     direction: 'UP' | 'DOWN',
-    average: 'N/A' | number,
+    average: null | number,
 }

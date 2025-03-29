@@ -1,9 +1,7 @@
 /**
  * This is a Node.JS program to scrape data for various line/stations and log averages
  */
-
 import { fetchData, getAverages } from './public/index.mjs'
-// const  = pkg;
 
 const routesToGet = [
     {
