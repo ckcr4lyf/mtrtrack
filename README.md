@@ -6,7 +6,7 @@ API Docs: https://opendata.mtr.com.hk/doc/Next_Train_API_Spec_v1.7.pdf
 
 ## MTR API Secrets
 
-I am not quite sure yet, but the response for East Rail Line is different to others. E.g.:
+The response for East Rail Line is different to others. E.g.:
 
 Island Line (ADM)
 ```json
@@ -38,4 +38,4 @@ East Rail Line (SHT)
 }
 ```
 
-There is a undocumented `route` field in the response! My guess is this is to differentiate trains going via "Fo Tan" vs. "Racecourse", which is crucial to me as I try and answer the question: "When is racecourse station open?"
+There is a undocumented `route` field in the response! This is empty for the "default" trains (via Fo Tan), however it is populated with `RAC` for trains via racecourse.
