@@ -76,6 +76,7 @@ async function getMultiple(){
     });
 
     if (data === undefined || data.length !== averages.length + 1){
+        console.log(`data/averages length mismatch, going to reset (Uplot: ${uplot.series.length}, Data: ${data.length}, Averages: ${averages.length})`)
         data = [];
         for (let i = 0; i < averages.length + 1; i++){
             data.push([]);
@@ -83,22 +84,24 @@ async function getMultiple(){
     }
 
     if (uplot.series.length !== data.length){
-        console.log(`length mismatch, gonna reset series`);
+        console.log(`uplot/data length mismatch, gonna reset series (Uplot: ${uplot.series.length}, Data: ${data.length}, Averages: ${averages.length})`);
         for (let i = 1; i < uplot.series.length; i++){
             uplot.delSeries(1);
         }
+        console.log(`deleted all series`);
     }
 
     if (initialFlag === true || uplot.series.length !== data.length){
         for (let i = 0; i < averages.length; i++){
             const avg = averages[i];
             const label = `${avg.station} - ${avg.destination} (${avg.direction})`;
+            console.log(`Adding label for: ${label}`);
             uplot.addSeries({
                 show: true,
                 spanGaps: false,
                 label: label,
                 value: (self, rawValue) => rawValue,
-                width: 1,
+                width: 2,
                 stroke: stringToColour(label),
             })
         }
@@ -113,6 +116,7 @@ async function getMultiple(){
     }
     
     uplot.setData(data);
+    console.log(data);
 }
 
 window.getMultiple = getMultiple;
