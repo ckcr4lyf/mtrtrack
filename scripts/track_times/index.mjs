@@ -61,21 +61,27 @@ async function getAndInsertTimes(route){
 
 async function updateOrInsertTime(timeDetails){
   // const now = new Date();
-  const min = new Date(timeDetails.utcTime.getTime() - 1000 * 30);
-  const max = new Date(timeDetails.utcTime.getTime() + 1000 * 30);
+  const min = new Date(timeDetails.utcTime.getTime() - 1000 * 70);
+  const max = new Date(timeDetails.utcTime.getTime() + 1000 * 70);
   
-  const result = await client.query('SELECT * FROM train_times WHERE route = $1 AND time BETWEEN $2 AND $3', [timeDetails.route, min, max]);
+  const result = await client.query('SELECT * FROM train_times WHERE route = $1 AND time BETWEEN $2 AND $3', [timeDetails.route, min, timeDetails.utcTime]);
   if (result.rows.length > 0){
-    console.log('Existing Record: ', result.rows);
-  }
-  
-  if (result.rows.length === 0){
-    const result2 = await client.query(`INSERT INTO train_times (route, time) VALUES ($1, $2)`, [timeDetails.route, timeDetails.utcTime]);
-    console.log(`Inserted new record (Time: ${timeDetails.utcTime.toISOString()})`);
-  } else {
-    const result3 = await client.query(`UPDATE train_times SET time = $1 WHERE route = $2 AND time BETWEEN $3 AND $4`, [timeDetails.utcTime, timeDetails.route, min, max]);
+    console.log('(MIN) Existing Record: ', result.rows);
+    await client.query(`UPDATE train_times SET time = $1 WHERE route = $2 AND time BETWEEN $3 AND $4`, [timeDetails.utcTime, timeDetails.route, min, timeDetails.utcTime]);
     console.log(`Updated existing record (from ${result.rows[0].time.toISOString()} to ${timeDetails.utcTime.toISOString()})`);
+    return;
+  } 
+  
+  const result2 = await client.query('SELECT * FROM train_times WHERE route = $1 AND time BETWEEN $2 AND $3', [timeDetails.route, timeDetails.utcTime, max]);
+  if (result2.rows.length > 0){
+    console.log('(MAX) Existing Record: ', result2.rows);
+    await client.query(`UPDATE train_times SET time = $1 WHERE route = $2 AND time BETWEEN $3 AND $4`, [timeDetails.utcTime, timeDetails.route, timeDetails.utcTime, max]);
+    console.log(`Updated existing record (from ${result2.rows[0].time.toISOString()} to ${timeDetails.utcTime.toISOString()})`);
+    return;
   }
+
+  await client.query(`INSERT INTO train_times (route, time) VALUES ($1, $2)`, [timeDetails.route, timeDetails.utcTime]);
+  console.log(`Inserted new record (Time: ${timeDetails.utcTime.toISOString()})`);
 }
 
 // await client.end();
