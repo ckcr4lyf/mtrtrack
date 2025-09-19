@@ -12,6 +12,11 @@ const routesToGet = [
         direction: 'UP'
     },
     {
+      line: 'EAL',
+      sta: 'UNI',
+      direction: 'DOWN'
+    },
+    {
         line: 'SIL',
         sta: 'ADM',
         direction: 'UP'
@@ -28,7 +33,7 @@ for (const route of routesToGet){
     const times = getTimes(data, route.line, route.sta, route.direction);
 
     for (const time of times){
-      console.log(`${time.route},${time.time}`);
+      console.log(`${time.route},${time.time},${time.utcTime.getTime()}`);
     }
 
     setInterval(async () => {
@@ -36,7 +41,7 @@ for (const route of routesToGet){
       const times = getTimes(data, route.line, route.sta, route.direction);
   
       for (const time of times){
-        console.log(`${time.route},${time.time}`);
+        console.log(`${time.route},${time.time},${time.utcTime.getTime()}`);
       }
     }, 1000 * 60);
 }

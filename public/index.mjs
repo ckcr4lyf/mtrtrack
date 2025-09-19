@@ -28,9 +28,13 @@ export const getTimes = (data, line, station, direction) => {
     const records = [];
 
     for (const time of times){
+        // MTR returns something like: "2025-09-19 15:00:51"
+        const hktDateString = time.time.substring(0, 10) + 'T' + time.time.substring(11) + '+08:00';
         records.push({
             route: `${line}-${station}-${time.dest}-${direction}`,
-            time: time.time,
+            time: hktDateString,
+            utcTime: new Date(hktDateString),
+            seq: time.seq,
         });
     }
 
