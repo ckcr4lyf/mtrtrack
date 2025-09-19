@@ -20,6 +20,29 @@ export const fetchData = async (line, station) => {
  * @param {string} line 
  * @param {string} station 
  * @param {'UP' | 'DOWN'} direction 
+ */
+export const getTimes = (data, line, station, direction) => {
+    const mtrRoute = data.data[`${line}-${station}`];
+    const times = mtrRoute[direction];
+
+    const records = [];
+
+    for (const time of times){
+        records.push({
+            route: `${line}-${station}-${time.dest}-${direction}`,
+            time: time.time,
+        });
+    }
+
+    return records;
+}
+
+/**
+ * 
+ * @param {import('./types').MtrResponse} data 
+ * @param {string} line 
+ * @param {string} station 
+ * @param {'UP' | 'DOWN'} direction 
  * @returns {import('./types').FrequencyData[]}
  */
 export const getAverages = (data, line, station, direction) => {
